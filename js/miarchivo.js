@@ -45,8 +45,8 @@ const productos = [{
 let carrito = [];
 
 function agregarAlCarrito(productoId){
-    const producto = productos.find(p => p.id === productoId);
-    const productoEnCarrito = carrito.find(p => p.id === productoId);
+    const producto = productos.find(prod => prod.id === productoId);
+    const productoEnCarrito = carrito.find(prod => prod.id === productoId);
 
     if(productoEnCarrito){
         productoEnCarrito.cantidad++;
@@ -57,18 +57,41 @@ function agregarAlCarrito(productoId){
     renderizarCarrito();
 }
 
+function eliminarDelCarrito(id) {
+    const productoEnCarrito = carrito.find(prod => prod.id === id);
+
+    if(productoEnCarrito){
+        productoEnCarrito.cantidad--;
+
+        if (productoEnCarrito.cantidad === 0){
+            carrito = carrito.filter(prod => prod.id !== id);
+        }
+    }
+    
+    renderizarCarrito();
+}
+
 function renderizarCarrito(){
     const carritoDiv = document.getElementById("carrito");
+
+    const totalProd = document.getElementById("total");
     carritoDiv.querySelectorAll("div").forEach(div => div.remove());
 
     carrito.forEach(producto => {
         const div = document.createElement("div");
+
         div.innerHTML = `<p>${producto.nombre} x${producto.cantidad} - $${(producto.precio * producto.cantidad).toFixed(2)}</p>`;
-        carritoDiv.appendChild(div);
+
+        const botonEliminar = document.createElement("button");
+        botonEliminar.textContent = "Eliminar Producto";
+        botonEliminar.addEventListener("click", () => eliminarDelCarrito(producto.id));
+
+        div.appendChild(botonEliminar);
+        carritoDiv.insertBefore(div, totalProd);
     });
 
     const total = carrito.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0);
-    document.getElementById("total").textContent = `Total: $${total.toFixed(2)}`;
+    totalProd.textContent = `Total: $${total.toFixed(2)}`;
 }
 
 const catalogo = document.getElementById("catalogo");
@@ -85,7 +108,7 @@ console.log(marcas);
 let productosPorMarca = {};
 
 marcas.forEach(marca => {
-    productosPorMarca[marca] = productos.filter(p => p.marca === marca);
+    productosPorMarca[marca] = productos.filter(prod => prod.marca === marca);
 });
 
 console.log(productosPorMarca);
