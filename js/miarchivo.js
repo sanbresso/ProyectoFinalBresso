@@ -44,6 +44,12 @@ const productos = [{
 
 let carrito = [];
 
+const carritoGuardado = localStorage.getItem("carrito");
+if (carritoGuardado){
+    carrito = JSON.parse(carritoGuardado);
+    renderizarCarrito();
+}
+
 function agregarAlCarrito(productoId){
     const producto = productos.find(prod => prod.id === productoId);
     const productoEnCarrito = carrito.find(prod => prod.id === productoId);
@@ -85,14 +91,23 @@ function renderizarCarrito(){
         const botonEliminar = document.createElement("button");
         botonEliminar.textContent = "Eliminar Producto";
         botonEliminar.addEventListener("click", () => eliminarDelCarrito(producto.id));
-
         div.appendChild(botonEliminar);
+
         carritoDiv.insertBefore(div, totalProd);
     });
 
     const total = carrito.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0);
     totalProd.textContent = `Total: $${total.toFixed(2)}`;
+
+    localStorage.setItem("carrito", JSON.stringify(carrito));
 }
+
+function vaciarCarrito(){
+    carrito = [];
+    renderizarCarrito();
+}
+
+document.getElementById("vaciar-carrito").addEventListener("click", vaciarCarrito);
 
 const catalogo = document.getElementById("catalogo");
 
