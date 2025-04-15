@@ -44,7 +44,7 @@ const productos = [{
 }
 ];
 
-const contenedor = document.getElementById("catalogo");
+const catalogo = document.getElementById("catalogo");
 
 let marcas = [];
 productos.forEach(producto => {
@@ -62,3 +62,27 @@ marcas.forEach(marca => {
 });
 
 console.log(productosPorMarca);
+
+for (let marca in productosPorMarca) {
+    const tituloMarca = document.createElement("h2");
+    tituloMarca.textContent = marca;
+    catalogo.appendChild(tituloMarca);
+
+    const contenedorProductos = document.createElement("div");
+    contenedorProductos.classList.add("contenedor-productos");
+
+    productosPorMarca[marca].forEach(producto => {
+        const contenedor = document.createElement("div");
+        contenedor.classList.add("producto");
+
+        contenedor.innerHTML = `<h3>${producto.nombre}</h3>
+        <p>Precio: $${producto.precio}</p>
+        <p>Categoría: ${producto.categoria}</p>
+        `;
+        
+        contenedorProductos.appendChild(contenedor);
+    });
+
+    catalogo.appendChild(contenedorProductos);
+}
+
