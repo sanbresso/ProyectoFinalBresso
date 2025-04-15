@@ -118,41 +118,49 @@ productos.forEach(producto => {
     }
 });
 
-console.log(marcas);
-
-let productosPorMarca = {};
+const filtrarMarca = document.getElementById("filtro-marca");
 
 marcas.forEach(marca => {
-    productosPorMarca[marca] = productos.filter(prod => prod.marca === marca);
+    const option = document.createElement("option");
+    option.value = marca;
+    option.textContent = marca;
+    filtrarMarca.appendChild(option);
 });
 
-console.log(productosPorMarca);
+filtrarMarca.addEventListener("change", () => {
+    const marcaFiltrada = filtrarMarca.value;
+    mostrarProdFiltrados(marcaFiltrada);
+});
 
-for (let marca in productosPorMarca) {
-    const tituloMarca = document.createElement("h2");
-    tituloMarca.textContent = marca;
-    catalogo.appendChild(tituloMarca);
+function mostrarProdFiltrados(marca) {
+    const catalogo = document.getElementById("catalogo");
+    catalogo.innerHTML = "";
 
-    const contenedorProductos = document.createElement("div");
-    contenedorProductos.classList.add("contenedor-productos");
+    let productosAMostrar = [];
 
-    productosPorMarca[marca].forEach(producto => {
+    if (marca === "todas") {
+        productosAMostrar = productos;
+    } else {
+        productosAMostrar = productos.filter(prod => prod.marca === marca);
+    }
+
+    productosAMostrar.forEach(producto => {
         const contenedor = document.createElement("div");
         contenedor.classList.add("producto");
 
         contenedor.innerHTML = `<h3>${producto.nombre}</h3>
         <p>Precio: $${producto.precio}</p>
-        <p>Categoría: ${producto.categoria}</p>
-        `;
+        <p>Categoría: ${producto.categoria}</p>`;
 
         const botonAgregar = document.createElement("button");
         botonAgregar.textContent = "Agregar al Carrito";
         botonAgregar.addEventListener("click", () => agregarAlCarrito(producto.id));
         contenedor.appendChild(botonAgregar);
-        
-        contenedorProductos.appendChild(contenedor);
-    });
 
-    catalogo.appendChild(contenedorProductos);
+        catalogo.appendChild(contenedor);
+    });
 }
 
+console.log(marcas);
+
+mostrarProdFiltrados("todas");
