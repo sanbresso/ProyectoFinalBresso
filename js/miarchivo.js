@@ -1,5 +1,3 @@
-// Lista de productos:
-
 const productos = [{
     id: 1,
     nombre: "Esponja anatómica | Pack x 12",
@@ -44,6 +42,35 @@ const productos = [{
 }
 ];
 
+let carrito = [];
+
+function agregarAlCarrito(productoId){
+    const producto = productos.find(p => p.id === productoId);
+    const productoEnCarrito = carrito.find(p => p.id === productoId);
+
+    if(productoEnCarrito){
+        productoEnCarrito.cantidad++;
+    } else {
+        carrito.push({ ...producto, cantidad: 1});
+    }
+
+    renderizarCarrito();
+}
+
+function renderizarCarrito(){
+    const carritoDiv = document.getElementById("carrito");
+    carritoDiv.querySelectorAll("div").forEach(div => div.remove());
+
+    carrito.forEach(producto => {
+        const div = document.createElement("div");
+        div.innerHTML = `<p>${producto.nombre} x${producto.cantidad} - $${(producto.precio * producto.cantidad).toFixed(2)}</p>`;
+        carritoDiv.appendChild(div);
+    });
+
+    const total = carrito.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0);
+    document.getElementById("total").textContent = `Total: $${total.toFixed(2)}`;
+}
+
 const catalogo = document.getElementById("catalogo");
 
 let marcas = [];
@@ -79,6 +106,11 @@ for (let marca in productosPorMarca) {
         <p>Precio: $${producto.precio}</p>
         <p>Categoría: ${producto.categoria}</p>
         `;
+
+        const botonAgregar = document.createElement("button");
+        botonAgregar.textContent = "Agregar al Carrito";
+        botonAgregar.addEventListener("click", () => agregarAlCarrito(producto.id));
+        contenedor.appendChild(botonAgregar);
         
         contenedorProductos.appendChild(contenedor);
     });
