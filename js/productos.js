@@ -41,3 +41,8 @@ export const productos = [{
     categoria: "Curitas"
 }
 ];
+
+export function buscarProductos(query) {
+    return productos.filter(producto => producto.nombre.toLowerCase().includes(query.toLowerCase())
+);
+}
