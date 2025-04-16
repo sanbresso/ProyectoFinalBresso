@@ -1,3 +1,5 @@
+import { carrito } from "./carrito.js";
+
 function renderizarCarrito(){
     const carritoDiv = document.getElementById("carrito");
     const totalProd = document.getElementById("total");
@@ -20,6 +22,9 @@ function renderizarCarrito(){
     totalProd.textContent = `Total: $${total.toFixed(2)}`;
 
     localStorage.setItem("carrito", JSON.stringify(carrito));
+
+    const totalProductos = carrito.reduce((acc, prod) => acc + prod.cantidad, 0);
+    document.getElementById("total-productos").textContent = `Productos en el carrito: ${totalProductos}`;
 }
 
 export {renderizarCarrito};
