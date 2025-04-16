@@ -10,10 +10,28 @@
     <h1>FP DISTRIBUCIONES | TU MAYORISTA DE CONFIANZA</h1>
 
     <main>
-        <label for="filtro-marca">Filtrar por marca</label>
-        <select name="filtro-marca" id="filtro-marca">
-            <option value="todas">Todas</option>
+        <div id="filtro-sidebar">
+            <h3>Filtrar por:</h3>
+            <div>
+                <strong>Marcas</strong>
+                <div id="filtro-marcas"></div>
+            </div>
+            <div>
+                <strong>Categorías</strong>
+                <div id="filtro-categorias"></div>
+            </div>
+        </div>
+
+        <div>
+             <label for="ordenar">Ordenar por:</label>
+        <select name="ordenar" id="ordenar">
+            <option value="default">--</option>
+            <option value="menorPrecio">Menor precio</option>
+            <option value="mayorPrecio">Mayor precio</option>
         </select>
+        </div>
+       
+       
         <section id="catalogo" class="catalogo-productos">
             <!-- catálogo -->
         </section>
