@@ -6,10 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FP Distribuciones</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css">
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="css/style.css">
+
 </head>
 
 <body>
@@ -21,7 +23,7 @@
                     Distribuciones</span>
             </a>
             <div class="flex items-center md:order-2 gap-4">
-                
+
                 <div class="relative hidden md:block">
                     <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                         <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
@@ -39,13 +41,15 @@
 
                 </div>
 
-                
+
                 <button id="cart-btn" class="text-gray-600 dark:text-white hover:text-blue-600 relative">
                     <i data-lucide="shopping-cart" class="w-6 h-6"></i>
-                    <span class="absolute -top-1 -right-2 bg-red-600 text-white text-xs rounded-full px-1">3</span>
+                    <span id="contador-carrito"
+                        class="absolute -top-1 -right-2 bg-red-600 text-white text-xs rounded-full px-1 hidden">0</span>
+
                 </button>
 
-                
+
                 <button data-collapse-toggle="navbar-search" type="button"
                     class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                     aria-controls="navbar-search" aria-expanded="false">
@@ -82,29 +86,33 @@
                         <button
                             class="flex items-center py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Marcas
                             ▾</button>
-                        
+
                         <ul id="menu-marcas"
-                            class="absolute hidden group-hover:block bg-white dark:bg-gray-700 text-gray-800 dark:text-white shadow-md mt-2 rounded-md p-2 z-10"><li><a href="#"
-                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600" data-marca="Cottonbaby">Cottonbaby</a></li>
-                            <li><a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600" data-marca="Jaspe">Jaspe</a>
+                            class="absolute hidden group-hover:block bg-white dark:bg-gray-700 text-gray-800 dark:text-white shadow-md mt-2 rounded-md p-2 z-10">
+                            <li><a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600"
+                                    data-marca="Cottonbaby">Cottonbaby</a></li>
+                            <li><a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600"
+                                    data-marca="Jaspe">Jaspe</a>
                             </li>
-                            
-                            <li><a href="#"
-                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600" data-marca="Jupiter">Júpiter</a></li>
+
+                            <li><a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600"
+                                    data-marca="Jupiter">Júpiter</a></li>
                         </ul>
                     </li>
                     <li class="relative group">
                         <button
                             class="flex items-center py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Productos
                             ▾</button>
-                        
+
                         <ul id="menu-productos"
                             class="absolute hidden group-hover:block bg-white dark:bg-gray-700 text-gray-800 dark:text-white shadow-md mt-2 rounded-md p-2 z-10">
-                            <li><a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600" data-categoria="Hogar-y-Limpieza">Hogar y Limpieza</a></li>
+                            <li><a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600"
+                                    data-categoria="Hogar-y-Limpieza">Hogar y Limpieza</a></li>
 
 
-                            <li><a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600" data-categoria="Cuidado-Personal">Cuidado Personal</a></li> 
-                                           
+                            <li><a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600"
+                                    data-categoria="Cuidado-Personal">Cuidado Personal</a></li>
+
                         </ul>
                     </li>
                     <li>
@@ -112,56 +120,79 @@
                             class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Contacto</a>
                     </li>
                 </ul>
-                <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class=" m-5 block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal"
+                    class=" m-5 block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    type="button">
                     Mi Cuenta
-                  </button>
-                  
-                  <!-- Main modal -->
-                  <div id="authentication-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                      <div class="relative p-4 w-full max-w-md max-h-full">
-                          <!-- Modal content -->
-                          <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
-                              <!-- Modal header -->
-                              <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
-                                  <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                                      Iniciar sesión
-                                  </h3>
-                                  <button type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="authentication-modal">
-                                      <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                                      </svg>
-                                      <span class="sr-only">Close modal</span>
-                                  </button>
-                              </div>
-                              <!-- Modal body -->
-                              <div class="p-4 md:p-5">
-                                  <form class="space-y-4" action="#">
-                                      <div>
-                                          <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                                          <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="user@mail.com" required />
-                                      </div>
-                                      <div>
-                                          <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
-                                          <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required />
-                                      </div>
-                                      <div class="flex justify-between">
-                                          <div class="flex items-start">
-                                              <div class="flex items-center h-5">
-                                                  <input id="remember" type="checkbox" value="" class="w-4 h-4 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-600 dark:border-gray-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" required />
-                                              </div>
-                                              <label for="remember" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Recordarme en este equipo</label>
-                                          </div>
-                                          <a href="#" class="text-sm text-blue-700 hover:underline dark:text-blue-500">Olvidé mi contraseña</a>
-                                      </div>
-                                      <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Ingresar</button>
-                                      <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
-                                          No estoy registrado <a href="#" class="text-blue-700 hover:underline dark:text-blue-500">Quiero crear una cuenta</a>
-                                      </div>
-                                  </form>
-                              </div>
-                          </div>
-                      </div>
-                  </div> 
+                </button>
+
+                <!-- Main modal -->
+                <div id="authentication-modal" tabindex="-1" aria-hidden="true"
+                    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                    <div class="relative p-4 w-full max-w-md max-h-full">
+                        <!-- Modal content -->
+                        <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
+                            <!-- Modal header -->
+                            <div
+                                class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
+                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                    Iniciar sesión
+                                </h3>
+                                <button type="button"
+                                    class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                    data-modal-hide="authentication-modal">
+                                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="none" viewBox="0 0 14 14">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                    </svg>
+                                    <span class="sr-only">Close modal</span>
+                                </button>
+                            </div>
+                            <!-- Modal body -->
+                            <div class="p-4 md:p-5">
+                                <form class="space-y-4" action="#">
+                                    <div>
+                                        <label for="email"
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                                        <input type="email" name="email" id="email"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                            placeholder="user@mail.com" required />
+                                    </div>
+                                    <div>
+                                        <label for="password"
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
+                                        <input type="password" name="password" id="password" placeholder="••••••••"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                            required />
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <div class="flex items-start">
+                                            <div class="flex items-center h-5">
+                                                <input id="remember" type="checkbox" value=""
+                                                    class="w-4 h-4 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-600 dark:border-gray-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
+                                                    required />
+                                            </div>
+                                            <label for="remember"
+                                                class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Recordarme
+                                                en este equipo</label>
+                                        </div>
+                                        <a href="#"
+                                            class="text-sm text-blue-700 hover:underline dark:text-blue-500">Olvidé mi
+                                            contraseña</a>
+                                    </div>
+                                    <button type="submit"
+                                        class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Ingresar</button>
+                                    <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
+                                        No estoy registrado <a href="#"
+                                            class="text-blue-700 hover:underline dark:text-blue-500">Quiero crear una
+                                            cuenta</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </div>
@@ -174,71 +205,103 @@
         </div>
     </div>
 
-    
-
-<!-- Modal toggle -->
-
-  
-
-    <h1>TU MAYORISTA DE CONFIANZA</h1>
-
-    <main>
-        <div id="filtro-sidebar">
-            <h3>Filtrar por:</h3>
-            <div>
-                <strong>Marcas</strong>
-                <div id="filtro-marcas"></div>
+    <main class="px-6">
+        <!-- Contenedor de botones -->
+        <div class="flex flex-wrap gap-4 items-center justify-start mb-6">
+          
+          <!-- Botón Filtrar -->
+          <div class="relative">
+            <button id="btn-filtro" type="button"
+              class="inline-flex justify-center items-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-blue-600 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+              Filtrar
+            </button>
+            <!-- Dropdown Filtros -->
+            <div id="dropdown-filtro" class="hidden absolute z-10 mt-2 w-64 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 p-4 space-y-4">
+              <div>
+                <p class="text-sm font-semibold text-gray-700 dark:text-white mb-2">Marcas</p>
+                <div id="filtro-marcas" class="space-y-1 text-sm text-gray-600 dark:text-gray-300"></div>
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-gray-700 dark:text-white mb-2">Categorías</p>
+                <div id="filtro-categorias" class="space-y-1 text-sm text-gray-600 dark:text-gray-300"></div>
+              </div>
+              <div class="pt-4 border-t border-gray-200 dark:border-gray-600 text-center">
+                <button id="btn-limpiar-filtros"
+                  class="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition">
+                  Eliminar filtros seleccionados
+                </button>
+              </div>
             </div>
-            <div>
-                <strong>Categorías</strong>
-                <div id="filtro-categorias"></div>
+          </div>
+      
+          <!-- Botón Ordenar -->
+          <div class="relative">
+            <button id="btn-ordenar" type="button"
+              class="inline-flex justify-center items-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-blue-600 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+              Ordenar por
+            </button>
+            <!-- Dropdown Ordenar -->
+            <div id="dropdown-ordenar" class="hidden absolute z-10 mt-2 w-52 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 p-2">
+              <ul class="space-y-1 text-sm text-gray-700 dark:text-white">
+                <li><button class="orden-opcion w-full text-left px-3 py-1.5 rounded hover:bg-blue-100 dark:hover:bg-blue-900" data-orden="default">Recientes</button></li>
+                <li><button class="orden-opcion w-full text-left px-3 py-1.5 rounded hover:bg-blue-100 dark:hover:bg-blue-900" data-orden="menorPrecio">Menor precio</button></li>
+                <li><button class="orden-opcion w-full text-left px-3 py-1.5 rounded hover:bg-blue-100 dark:hover:bg-blue-900" data-orden="mayorPrecio">Mayor precio</button></li>
+              </ul>
             </div>
+          </div>
         </div>
-
-        <div>
-            <label for="ordenar">Ordenar por:</label>
-            <select name="ordenar" id="ordenar">
-                <option value="default">--</option>
-                <option value="menorPrecio">Menor precio</option>
-                <option value="mayorPrecio">Mayor precio</option>
-            </select>
-        </div>
-
-
-        <section id="catalogo" class="catalogo-productos">
-            <!-- catálogo -->
+      
+        <!-- Catálogo -->
+        <section id="catalogo"
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 place-items-center">
         </section>
-
-        <section id="carrito">
-            <h2>Carrito de Compras</h2>
-            <p id="total">Total: $0</p>
-            <p id="total-productos">Productos en el carrito: 0</p>
-            <button id="vaciar-carrito">Vaciar Carrito</button>
-        </section>
-    </main>
+      </main>
+      
 
     <!-- Sidebar del carrito -->
-<div id="sidebar-carrito" class="fixed top-0 right-0 w-80 max-w-full h-full bg-white dark:bg-gray-800 shadow-lg z-50 transform translate-x-full transition-transform duration-300 ease-in-out overflow-y-auto">
-    <div class="p-4 flex justify-between items-center border-b border-gray-200 dark:border-gray-700">
-        <h2 class="text-xl font-semibold dark:text-white">Tu Carrito</h2>
-        <button id="cerrar-sidebar" class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
-            <i data-lucide="x" class="w-6 h-6"></i>
-        </button>
+    <div id="sidebar-carrito"
+        class="fixed top-0 right-0 w-80 max-w-full h-full bg-white dark:bg-gray-800 shadow-lg z-50 transform translate-x-full transition-transform duration-300 ease-in-out overflow-y-auto">
+        <div class="p-4 flex justify-between items-center border-b border-gray-200 dark:border-gray-700">
+            <h2 class="text-xl font-semibold dark:text-white">Tu Carrito</h2>
+            <button id="cerrar-sidebar"
+                class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+        <div id="contenido-carrito" class="p-4 space-y-4">
+
+            <p class="text-gray-500 dark:text-gray-400">El carrito está vacío</p>
+        </div>
+        <div class="p-4 border-t border-gray-200 dark:border-gray-700">
+            <p id="sidebar-total" class="font-bold text-gray-800 dark:text-white">Total: $0</p>
+            <button id="btn-vaciar" class="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Vaciar
+                Carrito</button>
+            <button id="btn-comprar" class="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Finalizar
+                Compra</button>
+        </div>
     </div>
-    <div id="contenido-carrito" class="p-4 space-y-4">
-        <!-- Aquí se cargan los productos del carrito -->
-        <p class="text-gray-500 dark:text-gray-400">El carrito está vacío</p>
-    </div>
-    <div class="p-4 border-t border-gray-200 dark:border-gray-700">
-        <p id="sidebar-total" class="font-bold text-gray-800 dark:text-white">Total: $0</p>
-        <button id="btn-comprar" class="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Finalizar Compra</button>
-    </div>
-</div>
 
 
-    <script>
-        lucide.createIcons();
-    </script>
+    <script>lucide.createIcons();</script>
+
+    <!-- Modal Resumen de Compra -->
+    <div id="modal-resumen" tabindex="-1" aria-hidden="true"
+        class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full p-6">
+            <h3 class="text-xl font-semibold mb-4 text-gray-800 dark:text-white">Resumen de tu Compra</h3>
+            <div id="contenido-resumen" class="space-y-4 text-sm mb-4 max-h-64 overflow-y-auto pr-2">
+                <!-- Se insertan los productos acá -->
+            </div>
+
+
+            <div class="flex justify-end space-x-2">
+                <button id="cerrar-modal"
+                    class="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded text-sm">Cerrar</button>
+                <button id="confirmar-compra"
+                    class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm">Confirmar</button>
+            </div>
+        </div>
+    </div>
 
     <script type="module" src="js/main.js"></script>
 </body>

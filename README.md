@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ProyectoFinalBresso
 
 FP Distribuciones - Catálogo E-commerce
