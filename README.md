@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # ProyectoFinalBresso
 
 FP Distribuciones - Catálogo E-commerce
@@ -24,3 +23,5 @@ Tailwind CSS
 JavaScript Modular (ES Modules)
 SweetAlert2
 Flowbite + Lucide Icons
+
+Link a GitHub: https://github.com/sanbresso/ProyectoFinalBresso/tree/main
