@@ -3,7 +3,8 @@ import { buscarProductos } from './productos.js';
 
 
 export function inicializarBuscador() {
-    const buscarInput = document.getElementById("search-navbar");
+    const buscarInput = document.getElementById("search-navbar-desktop"); 
+
     const resultadoInput = document.getElementById("search-results");
 
     if (!buscarInput || !resultadoInput) return;
