@@ -1,5 +1,7 @@
 import { buscarProductos } from './productos.js';
 
+
+
 export function inicializarBuscador() {
     const buscarInput = document.getElementById("search-navbar");
     const resultadoInput = document.getElementById("search-results");
