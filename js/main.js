@@ -2,6 +2,7 @@ import {productos} from './productos.js';
 import {vaciarCarrito} from './carrito.js';
 import {inicializarFiltros, aplicarFiltrosYOrden} from './filtros.js';
 import {mostrarProductos} from './ui.js';
+import {inicializarBuscador} from './navbar.js';
 
 document.addEventListener("DOMContentLoaded", () => {
     const bienvenida = document.getElementById("bienvenida");
@@ -21,5 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     mostrarProductos(productos);
     inicializarFiltros();
+    inicializarBuscador();
     document.getElementById("vaciar-carrito").addEventListener("click", vaciarCarrito);
 });
